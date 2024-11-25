@@ -7,17 +7,20 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <table>
-            <tr>
-                <th>
+    <div class="container">
+        <h1>Rate a Course and Instructor</h1>
+        <form id="form1" runat="server">
+            <table>
+                <tr>
+                    <th>
                     <asp:Label ID="SelectCourse" runat="server" Text="Select a Course"></asp:Label>
-                </th>
-                <td>
+                    </th>
+                    <td>
                     <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
-                </td>
-            </tr>
-       </table>
-    </form>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </body>
 </html>

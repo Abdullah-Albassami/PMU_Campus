@@ -54,7 +54,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-            <h1>Create Your Account</h1>
+        <h1>Create Your Account</h1>
         <table>
             <tr>
                 <td>
@@ -70,6 +70,14 @@
                 </td>
                 <td>
                     <asp:TextBox ID="TextBoxLastName" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="LabelMajor" runat="server" Text="Major:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="TextBoxMajorName" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -114,7 +122,6 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <asp:Button ID="ButtonRegister" runat="server" Text="Register" />
                 </td>
             </tr>
         </table>

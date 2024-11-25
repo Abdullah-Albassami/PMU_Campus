@@ -13,20 +13,37 @@ namespace PMU_Campus.Rating
             if (!IsPostBack)
             {
                 LoadCourses();
+                LoadInstructors();
             }
         }
 
         private void LoadCourses()
         {
-            // Fetch the connection string from Web.config
-            string connectionString = ConfigurationManager.ConnectionStrings["PMU_DatabaseConnectionString"]?.ConnectionString;
 
             if (string.IsNullOrEmpty(connectionString))
             {
                 // Handle missing connection string
                 SelectCourse.Text = "Error: Connection string is missing or invalid.";
                 return;
+                }
+                catch (Exception ex)
+                {
+                    // Log error and provide feedback to the user
+                    System.Diagnostics.Debug.WriteLine("Error loading courses: " + ex.Message);
+                    SelectCourse.Text = "Error loading courses. Please try again later.";
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
+
+            DropDownListCourses.Items.Insert(0, new ListItem("Select a Course", ""));
+        }
+
+        private void LoadInstructors()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["PMU_DatabaseConnectionString"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
