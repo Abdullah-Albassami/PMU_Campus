@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>PMU Campus - Select Course</title>
+    <title>PMU Campus - Home Page</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
