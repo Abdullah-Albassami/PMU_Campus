@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PMU_Campus.SignUp
 {
@@ -23,15 +21,16 @@ namespace PMU_Campus.SignUp
             string majorName = TextBoxMajorName.Text.Trim(); // Added Major field
 
             string connectionString = ConfigurationManager.ConnectionStrings["PMU_DatabaseConnectionString"].ConnectionString;
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                // Insert into the student table
-                string query = "INSERT INTO student (Major_Name, Fname, Lname, Email) VALUES (@MajorName, @FirstName, @LastName, @Email)";
+                string query = "INSERT INTO instructor (Major_Name, Fname, Lname, Email, Password) VALUES (@MajorName, @FirstName, @LastName, @Email, @Password)";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@MajorName", majorName);
                 cmd.Parameters.AddWithValue("@FirstName", firstName);
                 cmd.Parameters.AddWithValue("@LastName", lastName);
                 cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password); // Consider hashing passwords in production
 
                 try
                 {

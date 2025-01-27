@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PMU_Campus.LogIn
 {
@@ -28,7 +26,7 @@ namespace PMU_Campus.LogIn
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@FirstName", firstName);
                 cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Password", password); // Note: Remember to hash passwords in production
+                cmd.Parameters.AddWithValue("@Password", password); // Note: Use hashed passwords in production
 
                 try
                 {
@@ -47,7 +45,6 @@ namespace PMU_Campus.LogIn
                 }
                 catch (Exception ex)
                 {
-                    // Log error and provide feedback to the user
                     System.Diagnostics.Debug.WriteLine("Error signing in user: " + ex.Message);
                     Response.Write("Error: Could not sign in. Please try again later.");
                 }

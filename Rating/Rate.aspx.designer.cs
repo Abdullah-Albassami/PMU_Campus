@@ -15,13 +15,13 @@ namespace PMU_Campus.Rating
     {
 
         /// <summary>
-        /// form1 control.
+        /// DropDownListCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCourses;
 
         /// <summary>
         /// SelectCourse control.
@@ -33,11 +33,21 @@ namespace PMU_Campus.Rating
         protected global::System.Web.UI.WebControls.Label SelectCourse;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// DropDownListInstructors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListInstructors;
+
+        /// <summary>
+        /// SelectInstructor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SelectInstructor;
     }
 }
