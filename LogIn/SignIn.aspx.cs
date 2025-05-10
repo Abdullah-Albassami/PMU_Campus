@@ -1,54 +1,93 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Web.UI;
+using System.Text;
+using System.Web.Security;
+using Konscious.Security.Cryptography;
 
-namespace PMU_Campus.LogIn
+namespace PMU_Campus
 {
     public partial class SignIn : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void BtnLogin_Click(object sender, EventArgs e)
         {
-            // Page load logic if necessary
-        }
+            if (!Page.IsValid) return;
 
-        protected void ButtonSignIn_Click(object sender, EventArgs e)
-        {
-            string firstName = TextBoxFirstName.Text.Trim();
-            string email = TextBoxEmail.Text.Trim();
-            string password = TextBoxPassword.Text.Trim();
+            var email = txtEmail.Text.Trim();
+            var password = txtPassword.Text;
 
-            string connectionString = ConfigurationManager.ConnectionStrings["PMU_DatabaseConnectionString"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            var cs = ConfigurationManager
+                .ConnectionStrings["PMU_DatabaseConnectionString"]
+                .ConnectionString;
+
+            try
             {
-                // Check if a student with the given credentials exists in the database
-                string query = "SELECT COUNT(1) FROM student WHERE Fname=@FirstName AND Email=@Email AND Password=@Password";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@FirstName", firstName);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Password", password); // Note: Use hashed passwords in production
-
-                try
+                using (var conn = new SqlConnection(cs))
+                using (var cmd = conn.CreateCommand())
                 {
                     conn.Open();
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (count == 1)
+                    cmd.CommandText = @"
+                      SELECT id, password_hash, account_type, Fname, Lname
+                        FROM users
+                       WHERE Email = @Email";
+                    cmd.Parameters.Add("@Email", System.Data.SqlDbType.NVarChar, 255)
+                               .Value = email;
+
+                    using (var rdr = cmd.ExecuteReader())
                     {
-                        // Set session and redirect to homepage
+                        if (!rdr.Read() ||
+                            !VerifyPassword(password, rdr.GetString(1)))
+                        {
+                            lblError.Text = "Invalid email or password.";
+                            return;
+                        }
+
+                        FormsAuthentication.SetAuthCookie(email, false);
+                        Session["UserID"] = rdr.GetString(0);
                         Session["UserEmail"] = email;
-                        Response.Redirect("../HomePage/HomePAGE.aspx");
+                        Session["Role"] = rdr.GetString(2);
+                        Session["Fname"] = rdr.GetString(3);
+                        Session["Lname"] = rdr.GetString(4);
+
+                        var dest = Session["Role"].ToString().Equals("Student", StringComparison.OrdinalIgnoreCase)
+                          ? "~/StudentDashboard/StudentDashboard.aspx"
+                          : "~/InstructorDashboard/InstructorDashboard.aspx";
+
+                        Response.Redirect(dest, false);
                     }
-                    else
-                    {
-                        Response.Write("Invalid credentials. Please try again.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Error signing in user: " + ex.Message);
-                    Response.Write("Error: Could not sign in. Please try again later.");
                 }
             }
+            catch
+            {
+                lblError.Text = "An unexpected error occurred. Please try again later.";
+            }
+        }
+
+        private bool VerifyPassword(string password, string storedHash)
+        {
+            var parts = storedHash.Split(':');
+            if (parts.Length != 2) return false;
+
+            var salt = Convert.FromBase64String(parts[0]);
+            var hash = Convert.FromBase64String(parts[1]);
+            var argon2 = new Argon2id(Encoding.UTF8.GetBytes(password))
+            {
+                Salt = salt,
+                DegreeOfParallelism = 4,
+                MemorySize = 64 * 1024,
+                Iterations = 3
+            };
+            var newHash = argon2.GetBytes(32);
+            return FixedTimeEquals(newHash, hash);
+        }
+
+        private static bool FixedTimeEquals(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length) return false;
+            int diff = 0;
+            for (int i = 0; i < a.Length; i++)
+                diff |= a[i] ^ b[i];
+            return diff == 0;
         }
     }
 }

@@ -6,135 +6,201 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - PMU Campus</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #1E3A5F;
+            background-color: #2D2786;
             color: white;
-        }
-
-        .container-fluid {
-            width: 100%;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        header {
-            background-color: #363689;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        nav {
-            background: linear-gradient(to right, #0A0A0A, #2C2C2C);
-            color: white;
-            padding: 10px 0;
-        }
-
-        .navbar-nav .nav-item .nav-link {
-            color: white !important;
-            font-size: 16px;
-            text-decoration: none;
-        }
-
-        .navbar-nav .nav-item .nav-link:hover {
-            color: #ffa500 !important;
         }
 
         .navbar-brand img {
-            width: 100px;
-        }
-
-        .background-image {
-            width: 100%;
+            width: 110px;
             height: auto;
-            display: block;
-            object-fit: cover;
-            border-radius: 10px;
+            filter: brightness(2) contrast(1.5);
+            margin-left: 10px;
         }
 
-        footer {
-            background-color: #333333;
+        .nav-link {
+            color: white !important;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffa500 !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-signin {
+            background-color: #ffa500;
             color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer a {
-            color: #ffa500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: bold;
             text-decoration: none;
+            min-width: 85px;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .btn-signin:hover {
+            background-color: #d47500;
+            transform: translateY(-2px);
         }
 
-        .content-wrapper {
-            padding: 20px;
-            background-color: #2C3E50;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .footer-container {
+            background-color: #2D2786;
+            color: white;
+            padding: 40px 0 0 0;
+            margin-top: 50px;
+            border-top: 5px solid #ffa500;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin: 0 15px 20px;
+        }
+
+        .footer-column h3 {
+            color: #ffa500;
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-column p, .footer-column ul li a {
+            color: #ced4da;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ffa500;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        .responsive-heading {
+            font-size: 2.2rem;
+            font-weight: bold;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-column {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .responsive-heading {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
     <form runat="server">
-        <!-- Header Section -->
-        <header>
-            Welcome to PMU Campus
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
+
+        <header class="bg-primary text-white text-center py-2">
+            Discover all about our new PMU Campus website - <u>Explore Now</u>
         </header>
 
-        <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="/HomePAGE/HomePAGE.aspx">
-                    <img src="../images/PMUNAVLogo1.png" alt="PMU Logo" />
+                    <img src="/images/PMUNAVLogo1.png" alt="PMU Campus Logo" />
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="/HomePAGE/HomePAGE.aspx">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/About">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Navigation.aspx">Navigations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Rating/Rate">Rate Courses & Professors</a></li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/HomePAGE/HomePAGE.aspx">Home</a>
+                            <asp:HyperLink ID="SignInLink" runat="server" CssClass="btn-signin" NavigateUrl="/LogIn/SignIn.aspx">Sign In</asp:HyperLink>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Unity/index.html">Navigations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Rating/Rate">Rate Courses & Professors</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/LogIn/SignIn.aspx"><strong>Sign In</strong></a>
+                        <li class="nav-item d-flex align-items-center">
+                            <asp:LinkButton ID="WelcomeLabel" runat="server" CssClass="nav-link me-2" Visible="false" OnClick="WelcomeLabel_Click"></asp:LinkButton>
+                            <asp:LinkButton ID="LogoutLink" runat="server" CssClass="btn-signin" OnClick="Logout_Click" Visible="false">Log Out</asp:LinkButton>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <!-- Main Content Section -->
-        <div class="container-fluid my-5">
-            <div class="content-wrapper">
-                <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-        </div>
+        <main class="container-fluid my-4">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+        </main>
 
-        <!-- Footer Section -->
-        <footer>
-            <p>&copy; <%: DateTime.Now.Year %> PMU Campus. All rights reserved.</p>
+        <footer class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About PMU Campus</h3>
+                    <p>Prince Mohammad Bin Fahd University (PMU) is committed to providing a modern, interactive campus experience for students, faculty, and visitors.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/HomePAGE/HomePAGE.aspx">Home</a></li>
+                        <li><a href="/AboutPMU">About Us</a></li>
+                        <li><a href="/Navigation.aspx">Campus Navigation</a></li>
+                        <li><a href="/Rating/Rate">Rate Courses & Professors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Library Services</a></li>
+                        <li><a href="#">Student Portal</a></li>
+                        <li><a href="#">Faculty Directory</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>P.O. Box 1664, Al Khobar 31952, Saudi Arabia</p>
+                    <p>Phone: +966 13 849 9999</p>
+                    <p>Email: info@pmu.edu.sa</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; <%= DateTime.Now.Year %> Prince Mohammad Bin Fahd University. All Rights Reserved.
+            </div>
         </footer>
     </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

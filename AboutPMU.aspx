@@ -1,132 +1,311 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AboutPMU.aspx.cs" Inherits="PMU_Campus.AboutPMU" %>
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="PMU_Campus.About" %>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>About PMU Campus</title>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1E3A5F;
-            color: #ffffff;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            color: #333333;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .header {
+        /* Hero Section Styles */
+        .about-hero {
+            background: linear-gradient(rgba(45, 39, 134, 0.85), rgba(45, 39, 134, 0.95)), url('/images/campus-aerial.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 60px;
+            border-radius: 0 0 50% 50% / 20px;
         }
-
-        .header h1 {
-            font-size: 36px;
-            color: #1E3A5F;
+        
+        .about-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-
-        .header p {
-            font-size: 18px;
-            color: #555555;
+        
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
-
-        .content {
-            font-size: 18px;
+        
+        /* Feature Cards */
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-
-        .content h2 {
-            font-size: 24px;
-            color: #1E3A5F;
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #ffa500;
+            z-index: 2;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #2D2786;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .feature-card h3 {
+            color: #2D2786;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Purpose Section */
+        .purpose-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .purpose-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/images/pattern.png');
+            opacity: 0.05;
+        }
+        
+        .purpose-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .purpose-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        
+        .purpose-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .purpose-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .purpose-list li::before {
+            content: '✓';
+            display: inline-block;
+            margin-right: 15px;
+            color: #ffa500;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Technology Section */
+        .tech-section {
+            padding: 40px 0 60px;
+        }
+        
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
             margin-top: 30px;
         }
-
-        .content p {
-            margin-bottom: 20px;
+        
+        .tech-icon {
+            text-align: center;
+            width: 120px;
         }
-
-        .content ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-
-        .content ul li {
+        
+        .tech-icon img {
+            height: 60px;
             margin-bottom: 10px;
         }
-
-        footer {
+        
+        .tech-icon span {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Section Headers */
+        .section-header {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #1E3A5F;
-            color: #ffffff;
+            margin-bottom: 40px;
         }
-
-        .btn-learn-more {
+        
+        .section-header h2 {
+            color: #2D2786;
+            font-weight: 700;
+            position: relative;
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding-bottom: 15px;
         }
-
-        .btn-learn-more:hover {
-            background-color: #0056b3;
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #ffa500;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 15px auto 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 60px 0;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .feature-card {
+                margin-bottom: 30px;
+            }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>About PMU Campus Web Application</h1>
-            <p>Enhancing Campus Life at Prince Mohammad Bin Fahd University</p>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About PMU Campus</h1>
+            <p>Enhancing campus life at Prince Mohammad Bin Fahd University through innovative navigation and course review solutions.</p>
         </div>
-        <div class="content">
-            <h2>Introduction</h2>
-            <p>This innovative web application is designed to enhance campus life at Prince Mohammad Bin Fahd University (PMU) by providing features like campus navigation and course insights.</p>
-            <p>The interactive 3D campus map is being developed to offer an intuitive and simple way for students, faculty, and visitors to explore the PMU campus. Users will be able to locate buildings, rooms, and points of interest with ease, utilizing technologies such as AI pathfinding and Matterport Pro3 3D lidar scanning for precise navigation.</p>
+    </section>
 
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Interactive 3D Campus Map</strong>: Leverages Unity's powerful real-time development engine to provide a visually immersive way to explore the PMU campus, making it easy for users to locate key points of interest, such as coffee shops and faculty offices.</li>
-                <li><strong>Course Insight System</strong>: Offers a collaborative environment where students can rate and review courses. Students can gain insights into course difficulty and provide feedback to help others make informed academic decisions.</li>
-                <li><strong>Faculty & Course Ratings</strong>: Allows students to rate both courses and instructors based on their experiences, contributing to a transparent and supportive academic community.</li>
-            </ul>
-
-            <h2>Technology Stack</h2>
-            <p>The technology stack for this project includes:</p>
-            <ul>
-                <li><strong>Unity</strong> for 3D campus map integration, ensuring a highly interactive experience.</li>
-                <li><strong>Matterport Pro3 3D</strong> lidar scanner for precise campus modeling, enabling accurate representation of buildings and rooms.</li>
-                <li><strong>Python & C#</strong> for backend development.</li>
-                <li><strong>HTML, CSS, and JavaScript</strong> for the front-end web experience, providing a seamless and responsive user interface.</li>
-                <li><strong>Flutter or React Native</strong> for possible future mobile app integration.</li>
-            </ul>
-
-            <h2>Target Audience</h2>
-            <p>The web application is primarily designed for PMU students, but it will also benefit faculty and campus visitors:</p>
-            <ul>
-                <li><strong>Students</strong>: Access course reviews, find faculty office hours, and navigate the campus.</li>
-                <li><strong>Faculty Members</strong>: Stay connected with students and provide information about courses and office availability.</li>
-                <li><strong>Visitors</strong>: Easily navigate the PMU campus and locate important buildings.</li>
-            </ul>
-
-            <a href="#" class="btn-learn-more">Learn More</a>
+    <!-- Features Section -->
+    <section class="container">
+        <div class="section-header">
+            <h2>Key Features</h2>
+            <p>Discover the tools and resources designed to enhance your campus experience</p>
         </div>
-    </div>
-    <footer>
-        &copy; 2024 PMU Campus. All rights reserved.
-    </footer>
-</body>
-</html>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="bi bi-map-fill feature-icon"></i>
+                    <h3>Interactive 3D Campus Map</h3>
+                    <p>Navigate the campus effortlessly with our detailed 3D map. Locate buildings, classrooms, offices, and points of interest with precision and ease.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="bi bi-star-fill feature-icon"></i>
+                    <h3>Course & Professor Ratings</h3>
+                    <p>Access and share insights on courses and professors. Make informed decisions about your academic journey with real feedback from fellow students.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="bi bi-info-circle-fill feature-icon"></i>
+                    <h3>Comprehensive Information</h3>
+                    <p>Find detailed information about instructors, office hours, course schedules, and classroom locations all in one convenient platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purpose Section -->
+    <section class="purpose-section">
+        <div class="container purpose-content">
+            <div class="section-header">
+                <h2>Our Purpose</h2>
+                <p>Creating a more connected and informed campus community</p>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="/images/students.jpg" alt="PMU Students" class="img-fluid rounded shadow" onerror="this.src='https://via.placeholder.com/600x400?text=PMU+Students'">
+                </div>
+                
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <p>Our platform is designed to benefit students, faculty, and visitors by providing a comprehensive suite of tools that enhance the campus experience:</p>
+                    
+                    <ul class="purpose-list">
+                        <li>Effortless navigation around campus buildings and facilities</li>
+                        <li>Valuable insights into courses and professor teaching styles</li>
+                        <li>Streamlined access to important campus information</li>
+                        <li>Enhanced connectivity between students and academic resources</li>
+                        <li>Improved campus experience for visitors and new students</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="tech-section container">
+        <div class="section-header">
+            <h2>Technology</h2>
+            <p>Powered by cutting-edge technologies for optimal performance</p>
+        </div>
+        
+        <p class="text-center mb-4">
+            The application leverages Unity for 3D map integration and a robust backend powered by Python and C#. 
+            The frontend employs responsive web technologies for seamless functionality across all devices.
+        </p>
+        
+        <div class="tech-icons">
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" alt="Unity" onerror="this.src='https://via.placeholder.com/60x60?text=Unity'">
+                <span>Unity</span>
+            </div>
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" onerror="this.src='https://via.placeholder.com/60x60?text=C%23'">
+                <span>C#</span>
+            </div>
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" onerror="this.src='https://via.placeholder.com/60x60?text=Python'">
+                <span>Python</span>
+            </div>
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" onerror="this.src='https://via.placeholder.com/60x60?text=HTML5'">
+                <span>HTML5</span>
+            </div>
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" onerror="this.src='https://via.placeholder.com/60x60?text=CSS3'">
+                <span>CSS3</span>
+            </div>
+            <div class="tech-icon">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" onerror="this.src='https://via.placeholder.com/60x60?text=JavaScript'">
+                <span>JavaScript</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</asp:Content>

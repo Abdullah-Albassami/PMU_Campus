@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMU_Campus", "PMU_Campus.csproj", "{5C9F0653-ED17-48E8-A576-E576FC666708}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMU_Campus.Tests", "..\PMU_Campus.Tests\PMU_Campus.Tests.csproj", "{BA22BF47-B7D9-4971-99F8-FF45D1056D24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{5C9F0653-ED17-48E8-A576-E576FC666708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9F0653-ED17-48E8-A576-E576FC666708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9F0653-ED17-48E8-A576-E576FC666708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA22BF47-B7D9-4971-99F8-FF45D1056D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA22BF47-B7D9-4971-99F8-FF45D1056D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA22BF47-B7D9-4971-99F8-FF45D1056D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA22BF47-B7D9-4971-99F8-FF45D1056D24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2C922D5-AA66-47CB-A406-CCA0A779DF25}
 	EndGlobalSection
 EndGlobal

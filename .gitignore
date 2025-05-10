@@ -1,3 +1,5 @@
 .vs/
 bin/
 obj/
+Unity/Build
+Unity/TemplateData
